@@ -1,6 +1,4 @@
 streamlit
 python
-sqlite3
 matplotlib
 pandas
-os
