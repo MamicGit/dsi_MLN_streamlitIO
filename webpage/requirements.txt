@@ -1,6 +1,5 @@
 streamlit
 matplotlib
 pandas
-sqlite3
 os
 
