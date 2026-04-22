@@ -12,8 +12,11 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown(
     "##### <span style='color:darkred; text-decoration:underline; font-weight:bold;'>Project Basis - Conveyor & Machine</span>",
     unsafe_allow_html=True)
-image_path = "images/TheMachine.png"
-image = Image.open(image_path)
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+img_path = BASE_DIR / "images" / "TheMachine.png"
+
+image = Image.open(img_path)
 st.image(image, caption="", width=800)
 
 st.divider()
