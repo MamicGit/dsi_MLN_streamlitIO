@@ -12,7 +12,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown(
     "##### <span style='color:darkred; text-decoration:underline; font-weight:bold;'>Project Basis - Conveyor & Machine</span>",
     unsafe_allow_html=True)
-image_path = "./images/TheMachine.png"
+image_path = "./images/ShowUnderConstruction.png"
 image = Image.open(image_path)
 st.image(image, caption="", width=800)
 
