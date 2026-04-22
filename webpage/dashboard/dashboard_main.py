@@ -38,14 +38,17 @@ st.divider()
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # fetching dataframes from kpi_chart_calculations
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 df_norm, df_logs = get_data(zeit)
 kpi_chart = kpi_speedconveyor(df_norm)
 line_stops, count_2h, count_lh, count_curr = line_stops_rolled(df_norm)
 ko_data = kickout_data(df_norm)
 
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # KPI Section
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 with (st.container()):
     col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1])
 
@@ -55,13 +58,16 @@ with (st.container()):
         st.write("Controlling")
 
     with col2:  # conveyor speed risk
+        action_spd = ""
         conv_spd = kpi_chart["mean_last_6"].iloc[-1]
         conv_spd_prev = kpi_chart["mean_last_6"].iloc[-2]
 
         if conv_spd > 2.35:
             status = f"🔴 high risk"
+            action_spd = "<b>:red[Action required:]</b><br>Contact Technic Team!"
         elif conv_spd > 2.31:
             status = f"🟡 medium risk"
+            action_spd = "<b>:yellow[Action required:]</b><br>Inform Technic Team!"
         else:
             status = f"🟢 no risk"
 
@@ -71,21 +77,26 @@ with (st.container()):
 
         st.metric("**Conveyer speed** \n\n(current latest value)", f"{conv_spd} m/s", f"{delta_res}% vs. previous", delta_color="inverse")
         st.write(status)
+        st.markdown(f"{action_spd}", unsafe_allow_html=True)
 
     with col3:  # line stops 2h rolled
-        # line_stops, count_2h, count_lh, count_curr
+        action_stp = ""
         stops_diff = count_curr - count_lh
-        if stops_diff >= 3:
+        if count_curr >= 4:
             status_stp = f"🔴 high risk"
-        elif stops_diff >= 2:
+            action_stp = "<b>:red[Action required:]</b><br>Contact Slam Operator!"
+        elif count_curr >= 3:
             status_stp = f"🟡 medium risk"
+            action_stp = "<b>:yellow[Action required:]</b><br>Check Conveyor flow!"
         else:
             status_stp = f"🟢 no risk"
 
         st.metric("**Conveyer stops** \n\n(1h current)", f"{count_curr} stop(s)", delta=f"{stops_diff} stops vs. prev hour", delta_color="inverse")
         st.write(status_stp)
+        st.markdown(f"{action_stp}", unsafe_allow_html=True)
 
     with col4:  # Toner level print head
+        action_tnr = ""
         df_print_qa = df_norm[df_norm["print_quality_pct"] >= 0].copy()
         status_act = df_print_qa.iloc[-1, 14]
         status_bef = df_print_qa.iloc[-2, 14]
@@ -97,15 +108,19 @@ with (st.container()):
 
         if toner_act_perc <= 5:
             status_toner = f"🔴 high risk"
+            action_tnr = "<b>:red[Action required:]</b><br>Check replace of toner!"
         elif toner_act_perc <= 8:
             status_toner = f"🟡 medium risk"
+            action_tnr = "<b>:yellow[FYI:]</b><br>Upcoming Toner repl."
         else:
             status_toner = f"🟢 no risk"
 
         st.metric("**Toner Level Printheads** \n\n(current latest value)", f"{toner_act_perc}%", f"{toner_consumed}% (consumed)", delta_color="off")
         st.write(status_toner)
+        st.markdown(f"{action_tnr}", unsafe_allow_html=True)
 
     with col5:  # Kickout rate
+        action_kor = ""
         ship_vol2h, ko_vol2h, found_vol2h, ko_rate2h_perc, found_rate2h_perc = ko_data.tail(2).iloc[:, 1:].sum()
         ship_vol1h, ko_vol1h, found_vol1h, ko_rate1h_perc, found_rate1h_perc = ko_data.tail(1).iloc[:, 1:].sum()
         ko_act_perc = round(ko_rate1h_perc, 1)
@@ -114,15 +129,19 @@ with (st.container()):
 
         if ko_act_perc >= 24:
             status_ko = f"🔴 high risk"
-        elif ko_act_perc >= 18:
+            action_kor = "<b>:red[Action required:]</b><br>Check Pack-Stations!"
+        elif ko_act_perc >= 18.5:
             status_ko = f"🟡 medium risk"
+            action_kor = "<b>:yellow[FYI:]</b><br>Feedback to Packer"
         else:
             status_ko = f"🟢 no risk"
 
         st.metric("**Kickout Rate** \n\n(30min current)", f"{ko_act_perc}%", f"{delta_res_ko}% vs. previous", delta_color="inverse")
         st.write(status_ko)
+        st.markdown(f"{action_kor}", unsafe_allow_html=True)
 
-    with col6:
+    with col6:  # Package Problem rate
+        action_fnd = ""
         ship_vol2h, ko_vol2h, found_vol2h, ko_rate2h_perc, found_rate2h_perc = ko_data.tail(2).iloc[:, 1:].sum()
         ship_vol1h, ko_vol1h, found_vol1h, ko_rate1h_perc, found_rate1h_perc = ko_data.tail(1).iloc[:, 1:].sum()
         fnd_act_perc = round(found_vol1h / ship_vol1h * 100, 1)
@@ -131,19 +150,23 @@ with (st.container()):
 
         if fnd_act_perc >= 4:
             status_ko = f"🔴 high risk"
+            action_fnd = "<b>:red[Action required:]</b><br>Feedback to Packer!"
         elif fnd_act_perc >= 3:
             status_ko = f"🟡 medium risk"
+            action_fnd = "<b>:yellow[FYI:]</b><br>Feedback to Packer"
         else:
             status_ko = f"🟢 no risk"
 
-        st.metric("**Kickout Rate** \n\n(30min current)", f"{fnd_act_perc}%", f"{delta_res_fnd}% vs. previous", delta_color="off")
+        st.metric("**Package Rate** \n\n(30min current)", f"{fnd_act_perc}%", f"{delta_res_fnd}% vs. previous", delta_color="off")
         st.write(status_ko)
+        st.markdown(f"{action_fnd}", unsafe_allow_html=True)
 
 st.markdown("""<hr style="border-top: 3px double #bbb; border-bottom: none;"><br>""",unsafe_allow_html=True)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # chart Section
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 col1, col2, col3 = st.columns([1,1,1])
 
 with col1:
