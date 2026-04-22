@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 st.set_page_config(page_title="MLN | Insights", layout="wide", initial_sidebar_state="expanded")
 
@@ -7,6 +8,15 @@ st.markdown("# **Insights**")
 st.write("Insights in Data Logics & Configs")
 
 st.markdown("<br>", unsafe_allow_html=True)
+
+st.markdown(
+    "##### <span style='color:darkred; text-decoration:underline; font-weight:bold;'>Project Basis - Conveyor & Machine</span>",
+    unsafe_allow_html=True)
+image_path = "./images/TheMachine.png"
+image = Image.open(image_path)
+st.image(image, caption="", width=800)
+
+st.divider()
 
 st.markdown(
     "##### <span style='color:darkred; text-decoration:underline; font-weight:bold;'>Conveyor Speed</span>",
@@ -42,7 +52,7 @@ st.markdown(
     unsafe_allow_html=True)
 st.write("Each packaging line typically has two label printers that draw the necessary ink from a single toner cartridge.\
          \nIt is not unusual for the two printers to have different print qualities!\
-         \nThe less the printer quality the lower the toner ink status. When the print quality drops to 88%, the toner cartridge must be replaced/refilled.")
+         \nThe lower the print quality, the lower the toner level, among other things. When the print quality drops to 88%, the toner cartridge must be replaced/refilled.")
 st.markdown(
     "<span style='color:black; font-weight:bold;'>:red[KPI] for Toner Printheads</span>",
     unsafe_allow_html=True)
