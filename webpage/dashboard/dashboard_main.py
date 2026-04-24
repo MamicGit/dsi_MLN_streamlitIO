@@ -246,7 +246,7 @@ with col3:
     fig.patch.set_facecolor("#f7f5f5")
 
     ax.set_xlabel("time period 30 minutes")
-    ax.set_ylabel("kickout rate %")
+    ax.set_ylabel("problem found rate %")
     bar_value = ax.bar(x, y)
     ax.bar_label(bar_value, color="white", label_type='center', fmt='%.1f')
     ax.set_title("problem-found rate % (rolling 4 hours)",fontweight="bold",fontsize=12,pad=10)
