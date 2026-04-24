@@ -157,7 +157,7 @@ with (st.container()):
         else:
             status_ko = f"🟢 no risk"
 
-        st.metric("**Package Rate** \n\n(30min current)", f"{fnd_act_perc}%", f"{delta_res_fnd}% vs. previous", delta_color="off")
+        st.metric("**Package Probl. Rate** \n\n(30min current)", f"{fnd_act_perc}%", f"{delta_res_fnd}% vs. previous", delta_color="off")
         st.write(status_ko)
         st.markdown(f"{action_fnd}", unsafe_allow_html=True)
 
