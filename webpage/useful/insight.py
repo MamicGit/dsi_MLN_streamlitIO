@@ -89,14 +89,19 @@ with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
         st.markdown(
             "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
             unsafe_allow_html=True)
-        st.write("Exploratory Data Analysis (EDA) identifies key patterns and sources of production issues.\
-                 \n\n- Kickout rates peak during shift changes (~06:00 and ~22:00), indicating instability during transitions.\
-                 \n- Midday operations remain relatively stable.\
-                 \n- Station 11 shows a significantly higher kickout rate (~32% vs. ~22%), suggesting a local issue. \
-                 \n- Print quality (SLAM 1 & 2) impacts process stability and error rates.\
-                 \n- Stop probability remains low at normal speeds but increases sharply beyond ~2.3 m/s. \
-                 \nHigher speeds significantly increase the risk of system instability and should be avoided.\
-                 \n\n**These insights support targeted optimization and improved process stability.**")
+        st.markdown("""
+        **Exploratory Data Analysis (EDA) identifies key patterns and sources of production issues.**
+        - Findings:
+            - Kickout rates peak during shift changes (~06:00 and ~22:00), indicating instability during transitions.
+            - Midday operations remain relatively stable.
+            - Station 11 shows a significantly higher kickout rate (~32% vs. ~22%), suggesting a local issue.
+            - Print quality (SLAM 1 & 2) impacts process stability and error rates.
+            - Stop probability remains low at normal speeds but increases sharply beyond ~2.3 m/s.
+            - Higher speeds significantly increase the risk of system instability and should be avoided.
+            """)
+        st.markdown("""
+        **These insights support targeted optimization and improved process stability.**
+        """)
 
 # showing expander for ML description
 with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
@@ -135,22 +140,23 @@ with st.expander(":material/arrow_drop_down: :violet[**Website-Portal & Configur
 
     st.markdown("""
 - **As very first step: Server checking and testing**
-    - set up AWS environment with S3, EC2 instance, EBS, Elastic IP, Nginx and a cost control dashboard.
-    - set up Putty and WinSCP for productive work.
-    - ran some test.py scripts over a 1-week period to evaluate functionality, performance, stability, and cost efficiency of Python Streamlit on AWS.
-    - created in parallel a Streamlit Cloud profile on [share.streamlit.io](https://share.streamlit.io/) as full independent second Web-Portal.
-    - set up for this independent second Git repository, ensuring no risks for the project results.
+    - Set up an AWS environment comprising S3, EC2 instances, EBS, Elastic IP, Nginx, and a cost control dashboard.
+    - Set up PuTTY and WinSCP for productive use.
+    - Executed test.py scripts over a one-week period to assess functionality, performance, stability, and cost efficiency of Python Streamlit on AWS.
+    - Created in parallel a Streamlit Cloud profile on [share.streamlit.io](https://share.streamlit.io/) as full independent second Web-Portal.
+    - Set up an independent second Git repository, ensuring no risk to project outcomes.
+    - Syntax and script procedures tested and standardized; running without errors on both servers.
     """)
     st.markdown("""
 - **As second most extensive step: Developing & deploying**
-    - created mockup for design, Nav-Bar behavior and file environment.
-    - processed EDA to understand data and best praxis for KPIs, dashboards, tables and other components.
-    - implementation of all components and functions into corresponding files.
-    - filling entire portal with life (Ticket-System, description ect.).
+    - Created a design mockup covering navigation bar behavior and file structure.
+    - Performed EDA to understand the data and establish best practices for KPIs, dashboards, tables, and other components.
+    - Implementation of all components and functions into the corresponding files.
+    - Filled the portal with content, including the ticket system and descriptions.
     """)
     st.markdown("""
 - **As final step: Review and complete**
-    - requested unit tests and applied several updates).
+    - Requested unit tests and applied several updates.
     """)
     st.markdown("""
 - **Result:**
