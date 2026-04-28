@@ -30,7 +30,7 @@ st.subheader("**Project Team**")
 
 var_marco = "[Marco M.](https://www.linkedin.com/in/marco-michaelis-4a610438a/)"
 var_michael = "[Michael S.](https://www.linkedin.com/in/schipper-michael/)"
-var_mohamad = "Mohamad e."
+var_mohamad = "Mohamad E."
 
 var_teammember = randint(0,5)
 if var_teammember == 0:
