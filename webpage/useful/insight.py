@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 from pathlib import Path
+import pandas as pd
 
 st.set_page_config(page_title="MLN | Insights", layout="wide", initial_sidebar_state="expanded")
 
@@ -30,16 +31,16 @@ with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
         image = Image.open(img_path)
         st.image(image, caption="Teams Project", width="stretch")
 
-        st.markdown(
-            "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
-            unsafe_allow_html=True)
-        st.write("**Couple of unexpected behavior can happen on packaging lines and respective machines, such as:**\
-                 \n* :red[Unfocused employees]\
-                 \n* :red[Wear and tear on machinery]\
-                 \n* :red[Material waste]\
-                 \n* :red[Disorganized shift handover processes]\
-                 \n:red[ect...]\
-                 \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity inclusive support & ticket-system.]")
+    st.markdown(
+        "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
+        unsafe_allow_html=True)
+    st.write("**Couple of unexpected behavior can happen on packaging lines and respective machines, such as:**\
+             \n* :red[Unfocused employees]\
+             \n* :red[Wear and tear on machinery]\
+             \n* :red[Material waste]\
+             \n* :red[Disorganized shift handover processes]\
+             \n:red[ect...]\
+             \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity resulting in web-portal inclusive support & ticket-system.]")
 
 # Logfile Generator
 with st.expander(":material/arrow_drop_down: :violet[**Logfile-Generator**]"):
@@ -74,8 +75,8 @@ with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
                  \nThe data is then aggregated on shipment level and enriched with relevant features such as weight differences, relative deviations, and kickout indicators.\
                  \nIn addition, a mapping logic is implemented to assign production stops to the corresponding previous shipment.\
                  \n\n**The final dataset is stored in a SQLite database and serves as the foundation for further analysis and machine learning.**")
-        st.write(
-            "**ETL-Pipeline:** [Github](https://github.com/mohamaddataeng/log-machine-pipeline/tree/main/scripts)")
+    st.write(
+        "**ETL-Pipeline:** [Github](https://github.com/mohamaddataeng/log-machine-pipeline/tree/main/scripts)")
 
 # EDA description
 with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
@@ -86,44 +87,71 @@ with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
         image = Image.open(img_path)
         st.image(image, caption="by Mohamad E.", width="stretch")
 
-        st.markdown(
-            "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
-            unsafe_allow_html=True)
-        st.markdown("""
-        **Exploratory Data Analysis (EDA) identifies key patterns and sources of production issues.**
-        - Findings:
-            - Kickout rates peak during shift changes (~06:00 and ~22:00), indicating instability during transitions.
-            - Midday operations remain relatively stable.
-            - Station 11 shows a significantly higher kickout rate (~32% vs. ~22%), suggesting a local issue.
-            - Print quality (SLAM 1 & 2) impacts process stability and error rates.
-            - Stop probability remains low at normal speeds but increases sharply beyond ~2.3 m/s.
-            - Higher speeds significantly increase the risk of system instability and should be avoided.
-            """)
-        st.markdown("""
-        **These insights support targeted optimization and improved process stability.**
+    st.markdown(
+        "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
+        unsafe_allow_html=True)
+    st.markdown("""
+    **Exploratory Data Analysis (EDA) identifies key patterns and sources of production issues.**
+    - Findings:
+        - Kickout rates peak during shift changes (~06:00 and ~22:00), indicating instability during transitions.
+        - Midday operations remain relatively stable.
+        - Station 11 shows a significantly higher kickout rate (~32% vs. ~22%), suggesting a local issue.
+        - Print quality (SLAM 1 & 2) impacts process stability and error rates.
+        - Stop probability remains low at normal speeds but increases sharply beyond ~2.3 m/s.
+        - Higher speeds significantly increase the risk of system instability and should be avoided.
         """)
+    st.markdown("""
+    **These insights support targeted optimization and improved process stability.**
+    """)
 
 # ML description
 with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
-    col9, col10 = st.columns([2, 1])
+    col9, col10 = st.columns([1, 1])
     with col9:
         BASE_DIR = Path(__file__).resolve().parent.parent
         img_path = BASE_DIR / "images" / "PresentationML.png"
         image = Image.open(img_path)
         st.image(image, caption="by Michael S.", width="stretch")
 
-        st.markdown(
-            "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
-            unsafe_allow_html=True)
+        with col10:
+            BASE_DIR = Path(__file__).resolve().parent.parent
+            img_path = BASE_DIR / "images" / "PresentationML2.png"
+            image = Image.open(img_path)
+            st.image(image, caption="by Michael S.", width="stretch")
 
-        st.write("The goal of machine learning in this project was to find a way to increase process productivity for Quality Department, and increase customer experience.\
-                 \n....\
-                 \n\n...\
-                 \n...\
-                 \n...\
-                 \n\n...\
-                 \n...\
-                 \n\n**Result:**")
+    st.markdown(
+        "<span style='color:black; font-weight:bold;'>:red[Summary]</span>",
+        unsafe_allow_html=True)
+
+    st.write("The goal of machine learning in this project was to find a way to increase process productivity for Quality Department, and increase customer experience.\
+             \n\nLogistik-Pakete durchlaufen eine Gewichtskontrolle, bei der der regelbasierte Ansatz alle Pakete mit einer Abweichung über 1,2% zur manuellen Prüfung auskickt,\
+             \nwas zu einem hohen Prüfvolumen führt, obwohl nur ein kleiner Anteil der gekickten Pakete tatsächlich fehlerhaft ist.\
+             \n\n**Ziel** war, ein ML-Modell zu entwickeln, das echte Fehler präziser identifiziert und das Prüfvolumen reduziert.\
+             \nDie Zielvariable ist binär, die Klassen stark unbalanciert (pckg_problem_found: 0 = fehlerfrei ~97,8%, 1 = Paketfehler ~2,2%).\
+             \n\nEs wurden RandomForest, SVC und LogisticRegression (L1) mit class_weight='balanced' und GridSearchCV trainiert und auf vier unabhängigen Datensätzen (ø ~5.900 Pakete) evaluiert. \
+             \nDas Modell wurde einmal auf **F1-Score** und einmal auf **Recall** optimiert, um zwei verschiedene Praxisszenarien abzubilden.\
+             \n\n**Ergebnisse** (Ø):")
+
+    col20, col21 = st.columns([1, 1])
+    with col20:
+        data = [
+            ["Kickout",                         "21.3%", "3,6%", "25,1%"],
+            ["TP (% Kickout)",                  "10.2%", "34,8%", "8,8%"],
+            ["TP (% Erkennung Gesamt-Failures)", "100.0%", "53,8%", "100%"],
+            ["FP (% Kickout)",                  "89.8%", "65,2%", "91,2%"],
+            ["FN",                              "0", "12", "0"],
+        ]
+        df = pd.DataFrame(data, columns=["Process", "RB", "ML F1", "ML Recall"])
+        df.index = [""] * len(df)
+        st.markdown(df.to_html(index=False, justify="left"),unsafe_allow_html=True)
+
+    st.write("\n\nF1-Optimierung minimiert das Prüfvolumen auf Kosten verpasster Fehler. \
+                 \nRecall-Optimierung erkennt alle Fehler auf Kosten eines hohen Prüfvolumens — welcher Trade-off akzeptabel ist, hängt davon ab,\
+                 \nob ein verpasster Paketfehler oder ein unnötiger Prüfaufwand im Betrieb schwerwiegender wiegt. \
+                 \n\nDa synthetische Daten genutzt wurden, sind die Ergebnisse als obere Leistungsgrenze zu interpretieren.\
+                 ")
+    st.write(
+        "**Process & Codes:** [Github](https://github.com/schippermitch/Machine-Anomal)")
 
 # Website-Portal & Configurations description
 with st.expander(":material/arrow_drop_down: :violet[**Website-Portal & Configurations**]"):
@@ -206,4 +234,6 @@ with st.expander(":material/arrow_drop_down: :red[**Print Quality**]"):
         unsafe_allow_html=True)
     st.write("KPI number shows the real % status of toner.\
              \n**LOGIC** - Printquality 100% = 100% toner status, Printquality 88% = 0 % toner status")
+
+
 
