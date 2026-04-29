@@ -21,7 +21,7 @@ st.markdown(
     "##### <span style='color:darkblue; font-weight:bold;'>Visualization, Flow & Summary</span>",
     unsafe_allow_html=True)
 
-# showing expander for Conveyor & Machine description
+# Project skizze Conveyor & Machine description
 with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
     col1, col2 = st.columns([2, 1])
     with col1:
@@ -41,7 +41,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Conveyor & Machine**]"):
                  \n:red[ect...]\
                  \n\n**:green[Our Mission:]** :green[In search of ways to improve process transparency and optimize productivity inclusive support & ticket-system.]")
 
-# showing expander for Logfile Generator
+# Logfile Generator
 with st.expander(":material/arrow_drop_down: :violet[**Logfile-Generator**]"):
     col3, col4 = st.columns([1,1])
     with col3:
@@ -57,7 +57,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Logfile-Generator**]"):
 
     st.write("**Download Python-Code:** [Github](https://github.com/MamicGit/Proj_Machine-Log-Navigator/tree/main/Logfile_CustomerOrder_Generator)")
 
-# showing expander for ETL description
+# ETL description
 with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
     col5, col6 = st.columns([2, 1])
     with col5:
@@ -77,7 +77,7 @@ with st.expander(":material/arrow_drop_down: :violet[**ETL**]"):
         st.write(
             "**ETL-Pipeline:** [Github](https://github.com/mohamaddataeng/log-machine-pipeline/tree/main/scripts)")
 
-# showing expander for EDA description
+# EDA description
 with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
     col7, col8 = st.columns([2, 1])
     with col7:
@@ -103,12 +103,12 @@ with st.expander(":material/arrow_drop_down: :violet[**The EDA**]"):
         **These insights support targeted optimization and improved process stability.**
         """)
 
-# showing expander for ML description
+# ML description
 with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
     col9, col10 = st.columns([2, 1])
     with col9:
         BASE_DIR = Path(__file__).resolve().parent.parent
-        img_path = BASE_DIR / "images" / "PicturePlaceholder.png"
+        img_path = BASE_DIR / "images" / "PresentationML.png"
         image = Image.open(img_path)
         st.image(image, caption="by Michael S.", width="stretch")
 
@@ -125,7 +125,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
                  \n...\
                  \n\n**Result:**")
 
-# showing expander for Website-Portal & Configurations description
+# Website-Portal & Configurations description
 with st.expander(":material/arrow_drop_down: :violet[**Website-Portal & Configurations**]"):
     col11, col12 = st.columns([2, 1])
     with col11:
