@@ -124,13 +124,13 @@ with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
         unsafe_allow_html=True)
 
     st.write("The goal of machine learning in this project was to find a way to increase process productivity for Quality Department, and increase customer experience.\
-             \n\nLogistik-Pakete durchlaufen eine Gewichtskontrolle, bei der der regelbasierte Ansatz alle Pakete mit einer Abweichung über 1,2% zur manuellen Prüfung auskickt,\
-             \nwas zu einem hohen Prüfvolumen führt, obwohl nur ein kleiner Anteil der gekickten Pakete tatsächlich fehlerhaft ist.\
-             \n\n**Ziel** war, ein ML-Modell zu entwickeln, das echte Fehler präziser identifiziert und das Prüfvolumen reduziert.\
-             \nDie Zielvariable ist binär, die Klassen stark unbalanciert (pckg_problem_found: 0 = fehlerfrei ~97,8%, 1 = Paketfehler ~2,2%).\
-             \n\nEs wurden RandomForest, SVC und LogisticRegression (L1) mit class_weight='balanced' und GridSearchCV trainiert und auf vier unabhängigen Datensätzen (ø ~5.900 Pakete) evaluiert. \
-             \nDas Modell wurde einmal auf **F1-Score** und einmal auf **Recall** optimiert, um zwei verschiedene Praxisszenarien abzubilden.\
-             \n\n**Ergebnisse** (Ø):")
+             \n\nLogistics packages pass through a weight check in which the rule-based approach flags all packages with a deviation above 1.2% for manual inspection —\
+             \nresulting in a high inspection volume, even though only a small proportion of flagged packages are actually faulty.\
+             \n\n**The objective** was to develop an ML model that identifies genuine faults more precisely and reduces inspection volume.\
+             \n**The target** variable is binary with strongly imbalanced classes (pckg_problem_found: 0 = no fault ~97.8%, 1 = package fault ~2.2%). \
+             \n\nRandomForest, SVC, and LogisticRegression (L1) were trained with class_weight='balanced' and GridSearchCV, and evaluated on four independent datasets (avg. ~5,900 packages each).\
+             \n**The model** was optimised once for F1-score and once for Recall, representing two distinct operational scenarios.\
+             \n\n**Results:** (Ø):")
 
     col20, col21 = st.columns([1, 1])
     with col20:
@@ -145,10 +145,10 @@ with st.expander(":material/arrow_drop_down: :violet[**Machine Learning ML**]"):
         df.index = [""] * len(df)
         st.markdown(df.to_html(index=False, justify="left"),unsafe_allow_html=True)
 
-    st.write("\n\nF1-Optimierung minimiert das Prüfvolumen auf Kosten verpasster Fehler. \
-                 \nRecall-Optimierung erkennt alle Fehler auf Kosten eines hohen Prüfvolumens — welcher Trade-off akzeptabel ist, hängt davon ab,\
-                 \nob ein verpasster Paketfehler oder ein unnötiger Prüfaufwand im Betrieb schwerwiegender wiegt. \
-                 \n\nDa synthetische Daten genutzt wurden, sind die Ergebnisse als obere Leistungsgrenze zu interpretieren.\
+    st.write("\n\nF1 optimisation minimises inspection volume at the cost of missed faults.\
+                 \nRecall optimisation detects all faults at the cost of high inspection volume —\
+                 \nwhich trade-off is acceptable depends on whether a missed package fault or unnecessary inspection effort carries greater operational consequence.\
+                 \n\nSince synthetic data was used, results should be interpreted as an upper performance bound.\
                  ")
     st.write(
         "**Process & Codes:** [Github](https://github.com/schippermitch/Machine-Anomal)")
@@ -201,7 +201,7 @@ st.markdown(
     "#### :material/conveyor_belt: Process Elements & KPIs"
 )
 
-# showing expander for description of Conveyor Speed + KPI details
+# description of Conveyor Speed + KPI details
 with st.expander(":material/arrow_drop_down: :violet[**Conveyor Speed**]"):
     st.write("The packing line conveyor belt is divided into at least four independently running belts.\
              \nFor slam machine & label printer its a second smaller one. It directs the packages, which are fed to the machine at precisely equal intervals, for label processing!\
@@ -214,7 +214,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Conveyor Speed**]"):
              \n**LOGIC:** for each 5min time slot determine highest speed value (the one you find in the raw logs). On that numbers its calculating for ech 5-min-slot the moving average over last 30 minutes.\
              \n**In the end, it shows how often a sharp spike occurs within a 5-minute window, how high that spike is, and whether the technical team needs to reconfigure the conveyor belt!**")
 
-# showing expander for description of Machine Stops + KPI details
+# description of Machine Stops + KPI details
 with st.expander(":material/arrow_drop_down: :violet[**Machine Stops**]"):
     st.write("Stop of conveyor and machine can have various reasons, such as 'Package queue conflicts', 'Toner Refill', 'Change of label material' and some more.\
              \nFor reason 'Package queue conflicts' its mostly based on uneven belt speed which leads into a auto-stop and the risk for package swicheroos!")
@@ -224,7 +224,7 @@ with st.expander(":material/arrow_drop_down: :violet[**Machine Stops**]"):
     st.write("KPI number shows the amount of stops just for 'Package queue conflicts' during latest two hours rolled, and shows below of this the sum of stops for last hour for high transparency.\
              \nThe higher the KPI, the higher the risk for customer impact for Swicheroos. The action should be discussion with Slam-Operator and technical team to adapt conveyor belt configuration.")
 
-# showing expander for description of Print Quality + KPI details
+# description of Print Quality + KPI details
 with st.expander(":material/arrow_drop_down: :violet[**Print Quality**]"):
     st.write("Each packaging line typically has two label printers that draw the necessary ink from a single toner cartridge.\
              \nIt is not unusual for the two printers to have different print qualities!\
