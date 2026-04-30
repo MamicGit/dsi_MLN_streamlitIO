@@ -59,9 +59,7 @@ if toggle_me:
         """
         <span style='color:grey;'>
         My challenge ...<br> 
-        ....<br>
-        ...
-        </span>
+        <br></span>
         """,
         unsafe_allow_html=True
     )
@@ -75,9 +73,8 @@ if toggle_ms:
     st.markdown(
         """
         <span style='color:grey;'>
-        My challenge ...<br> 
-        ....<br>
-        ...
+        My challenge was to rapidly connect the mathematical concepts underlying each ML model — loss functions, optimization, regularization, and evaluation metrics — 
+        into a coherent pipeline, so that every modeling decision was grounded in the math rather than trial and error.<br> 
         <br></span>
         """,
         unsafe_allow_html=True
